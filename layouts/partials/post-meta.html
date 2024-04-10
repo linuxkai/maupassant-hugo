@@ -1,12 +1,17 @@
 {{- $datetime_format := i18n "Datetime_format" -}}
 {{ if not .PublishDate.IsZero }}
   <time datetime="{{ .PublishDate.UTC.Format "2006-01-02T15:04:05Z07:00" }}" class="post-meta meta-date dt-published">
-    {{ time.Format $datetime_format .PublishDate }}
+    发布日期: {{ time.Format $datetime_format .PublishDate }}
+  </time>
+{{ end }}
+{{ if not .Lastmod.IsZero }}
+  <time datetime="{{ .Lastmod.UTC.Format "2006-01-02T15:04:05Z07:00" }}" class="post-meta meta-updated">
+    | 更新日期: {{ time.Format $datetime_format .Lastmod }}
   </time>
 {{ end }}
 {{ with .Params.Categories }}
 <div class="post-meta meta-category">
-  <span>&nbsp;|</span>
+  <span>&nbsp;| 文章分类: </span>
   {{ range . }}
     <a href='{{ "categories/" | relURL }}{{ . | urlize }}' target="_blank">{{ . }}</a>
   {{ end }}
